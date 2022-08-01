@@ -1,0 +1,137 @@
+<html>
+	<head>
+		<title>RN_Imovel</title>
+		<style>
+			BODY{
+				color: #006080;
+				font-family: Arial; 
+				}
+			INPUT, SELECT {
+				font-size: 22px;
+				}
+			TABLE {
+				background-color: rgba(0,128,255,0.1);
+				border-radius: 10px;
+				box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+				font-size: 24px;
+				width: 40%;
+				}
+		</style>
+		<meta name="author" content="Bernardo Meyer">
+		<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+		<meta name="description" content="HTML5">
+		<script src="BMyFrmwk.js"></script>
+		<script>
+			var ob = new BMy();
+			function calcula(){
+				var bias = (ob.getById("bias")).value;
+				var soma = parseFloat(bias);
+				document.querySelectorAll('.categ').forEach(item => {
+					soma += parseFloat(item.options[item.selectedIndex].value);
+					});
+				console.log(typeof(soma));
+				(ob.getById("resultado")).value = soma.toFixed(2);
+				}
+			function init(){	
+				
+				document.querySelectorAll('.param').forEach(item => {
+				  item.addEventListener('keyup', event => {
+				    var obj = event.target;
+				    console.log(obj.value);
+				    calcula();
+				  })
+				});
+				document.querySelectorAll('.categ').forEach(item => {
+				  item.addEventListener('change', event => {
+					var select = event.target;
+					var value = select.options[select.selectedIndex].value;
+					console.log(value);
+					calcula();
+				  })
+				});				
+				}
+		</script>
+	</head>
+	<body id="corpo" onload="init();">
+		<center>
+			<h1>Rede Neural - Escolha de Imóvel</h1>
+			<table class="sombra" cellpadding=8>
+				<tr>
+					<td>
+						<label>Barulho a noite (BIAS):</label>
+					</td>
+					<td>
+						<input class="param" id="bias" name="bias" size=8>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Área do imóvel:</label>
+					</td>
+					<td>
+						<select class="categ" id="area" name="area">
+							<option value="0.05">64 m<sub>2</sub>
+							<option value="0.2">72 m<sub>2</sub> 
+							<option value="0.25">80 m<sub>2</sub>
+							<option value="0.2">105 m<sub>2</sub>
+							<option value="0.05">Mais
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Proximidade da escola:</label>
+					</td>
+					<td>
+						<select class="categ" id="escola" name="escola">
+							<option value="0.275">Percurso a pé
+							<option value="0.2">Caminho do trabalho
+							<option value="0.15">Ônibus na porta
+							<option value="0.1">10 minutos de desvio trabalho
+							<option value="0.05">20 minutos de desvio trabalho
+							<option value="0">Mais
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Proximidade do trabalho:</label>
+					</td>
+					<td>
+						<select class="categ" id="trabalho" name="trabalho">
+							<option value="0.275">Percurso a pé
+							<option value="0.2">5 minutos de carro
+							<option value="0.15">10 minutos de carro
+							<option value="0.1">15 minutos de carro
+							<option value="0.05">20 minutos de carro
+							<option value="0">Mais
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Presença de comércio:</label>
+					</td>
+					<td>
+						<select class="categ" id="comercio" name="comercio">
+							<option value="0.275">Na própria rua
+							<option value="0.2">Dá prá ir a pé
+							<option value="0.15">5 minutos de carro
+							<option value="0.1">10 minutos de carro
+							<option value="0">Mais
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label>RESULTADO:</label>
+					</td>
+					<td>
+						<input id="resultado" name="resultado" size=8>
+					</td>					
+				</tr>
+			</table>
+		</center>
+	</body>
+</html>
